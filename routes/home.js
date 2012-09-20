@@ -56,6 +56,11 @@ exports.index = function(req, res, next){
 
 exports.lang = function (req, res, next) {
   var lang = req.param('lang');
+
+  // if nothing submitted, nothing to do
+  if (!(lang= lang.trim())) return next();
+
+  // force int
   var page = req.param('page') | 0;
 
   repos
@@ -68,12 +73,21 @@ exports.lang = function (req, res, next) {
 
 exports.search = function (req, res, next) {
   var term = req.param('term');
+
+  // if nothing submitted, nothing to do
   if (!(term = term.trim())) return next();
+
+  // force int
+  var page = req.param('page') | 0;
 
   var descRgx = new RegExp(term, 'ig');
   var nameRgx = new RegExp(term, 'ig');
-  repos.find({ $or: [{name: nameRgx, fork:false},{username: nameRgx, fork:false},{description: descRgx, fork:false}] }, { sort: { watchers: -1}}).toArray(function (err, projects) {
+
+  var query ={ $or: [{name: nameRgx, fork:false},{username: nameRgx, fork:false},{description: descRgx, fork:false}] };
+  var opts = { sort: { watchers: -1}};
+  repos.find(query, opts).toArray(function (err, projects) {
     if (err) return next(err);
-    res.send(projects);
+    //res.send(projects);
+    res.render('index', { langs: langs, projects: projects || [], lang: '', term: term, page: page });
   });
 }
