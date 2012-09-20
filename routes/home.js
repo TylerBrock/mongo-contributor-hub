@@ -3,17 +3,29 @@ var langs;
 
 // every 5 mins update this search result
 setInterval(function updateLangs () {
-  console.log('updateLangs: querying...');
-  var match =  {$match: { fork: false }};
-  var group = {$group : {_id : "$language", count : {$sum : 1 } } };
-  var sort = {$sort : {count : -1}};
-  repos.aggregate(match, group, sort, function (err, languages) {
+  console.log('%s: updating languages', new Date);
+
+  // no aggregation on pre 2.2  :(
+  //var match =  {$match: { fork: false }};
+  //var group = {$group : {_id : "$language", count : {$sum : 1 } } };
+  //var sort = {$sort : {count : -1}};
+  //repos.aggregate(match, group, sort, function (err, languages) {
+
+  // OMG KILL ME NOW
+  repos.group(
+      ['language']
+    , { fork: false }
+    , { count: 0 }
+    , function(doc,prev){ prev.count+=1 }, handleResponse);
+
+  function handleResponse (err, languages) {
     if (err) {
       console.error('updateLangs error: ', err);
       languages || (languages = []);
     }
     langs = languages;
-  });
+  }
+
   return updateLangs;
 }(), 60000*5)
 
