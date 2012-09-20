@@ -5,7 +5,7 @@ body {
   color: #412817;
 }
 
-a {
+a, a:hover {
   color: #412817;
 }
 
