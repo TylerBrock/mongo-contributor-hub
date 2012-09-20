@@ -5,6 +5,10 @@ body {
   color: #412817;
 }
 
+a {
+  color: #412817;
+}
+
 thead {
   font-weight: bold;
 }
