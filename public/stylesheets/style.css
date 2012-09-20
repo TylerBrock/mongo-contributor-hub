@@ -8,6 +8,11 @@ a {
   color: #412817;
 }
 
+thead {
+  color: #412817;
+  font-weight: bold;
+}
+
 div .nav-list {
   padding-top: 8px;
   padding-bottom: 8px;
