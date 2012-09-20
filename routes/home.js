@@ -65,7 +65,7 @@ exports.lang = function (req, res, next) {
 
   repos
   .find({ 'language': lang, fork: false }, { skip: page, limit: 20, sort: { followers: 1 }})
-  .toArray(function (err, langs) {
+  .toArray(function (err, projects) {
     if (err) return next(err);
     res.render('index', { langs: langs, projects: projects || [], lang: lang, page: page });
   });
