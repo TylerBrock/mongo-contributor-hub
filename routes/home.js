@@ -44,13 +44,18 @@ exports.index = function(req, res, next){
 
 exports.lang = function (req, res, next) {
   var lang = req.param('lang');
+  var page = req.param('page') || 0;
 
   repos
-  .find({ 'language': lang }, { limit: 20, sort: { followers: 1 }})
+  .find({ 'language': lang }, { skip: page, limit: 20, sort: { followers: 1 }})
   .toArray(function (err, langs) {
     if (err) return next(err);
 
-    // todo use a different view
-    res.render('index', { langs: langs || [] });
+    // TODO use a different view
+    res.render('index', { langs: langs || [], projects: [] });
   });
+}
+
+exports.search = function (req, res, next) {
+  
 }

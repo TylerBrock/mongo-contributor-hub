@@ -5,6 +5,6 @@ module.exports = exports = function (app) {
 
   app.get('/', home.index);
   app.get('/users', user.list);
-  app.get('/lang/:lang', home.lang)
+  app.get('/language/:lang', home.lang)
 
 }
