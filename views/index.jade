@@ -20,7 +20,7 @@ html
               li.nav-header Languages
               each lang in langs
                 li
-                  a(href="/language/#{lang.language}")
+                  a(href="/language/#{encodeURIComponent(lang.language)}")
                     = lang.language + ' '
                     span (#{lang.count})
         .span9
@@ -34,9 +34,9 @@ html
             each project in projects
               tr
                 td 
-                  a(href="http://github.com/#{project.owner}/#{project.name}", target="_blank") #{project.name}
+                  a(href="http://github.com/#{encodeURIComponent(project.owner)}/#{encodeURIComponent(project.name)}", target="_blank") #{project.name}
                 td(owner='#{project.owner}')
-                  a(href="http://github.com/#{project.owner}", target="_blank") #{project.owner}
+                  a(href="http://github.com/#{encodeURIComponent(project.owner)}", target="_blank") #{project.owner}
                 td #{project.followers}
                 td #{project.forks}
 

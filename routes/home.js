@@ -63,11 +63,13 @@ exports.lang = function (req, res, next) {
   // force int
   var page = req.param('page') | 0;
 
+  if ('null' === lang) lang = null;
+
   repos
   .find({ 'language': lang, fork: false }, { skip: page, limit: 20, sort: { followers: -1 }})
   .toArray(function (err, projects) {
     if (err) return next(err);
-    res.render('index', { langs: langs, projects: projects || [], lang: lang, page: page });
+    res.render('index', { langs: langs, projects: projects || [], lang: encodeURIComponent(String(lang)), page: page });
   });
 }
 
