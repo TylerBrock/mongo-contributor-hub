@@ -32,7 +32,7 @@ html
               tr
                 td 
                   a(href="http://github.com/#{project.owner}/#{project.name}", target="_blank") #{project.name}
-                td #{project.owner}
+                td(owner='#{project.owner}') #{project.owner}
                 td #{project.followers}
                 td #{project.forks}
 
@@ -51,6 +51,13 @@ html
       $(".nav-list a").click(function(){
         // fetch rendered template for given lang
         // replace html
+      });
+      $("table.table.table-striped tr").each(function(){
+        var td_owner = $(this).find('[owner]');
+        $.get(
+            'https://api.github.com/users/{username}', {username:td_owner.attr('owner')}
+            function(data) {td_owner.append('<img src="'+data.avatar_url+'"/>)}
+        );
       });
 
       $(".pager a").click(function(){
