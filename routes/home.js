@@ -84,10 +84,12 @@ exports.lang = function (req, res, next) {
 }
 
 exports.search = function (req, res, next) {
-  var term = req.param('term');
+  var term = req.param('term') || '';
 
   // if nothing submitted, nothing to do
-  if (!(term = term.trim())) return next();
+  if (!(term = term.trim())) {
+    return res.redirect('/');
+  }
 
   // force int
   var page = req.param('page') | 0;
