@@ -4841,7 +4841,8 @@ input[type="submit"].btn.btn-mini {
 
 .pager a:hover {
   text-decoration: none;
-  background-color: #f5f5f5;
+  color: #DBCAAF;
+  background-color: #402818;
 }
 
 .pager .next a,
