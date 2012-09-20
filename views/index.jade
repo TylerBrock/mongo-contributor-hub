@@ -12,17 +12,9 @@ html
           .nav.nav-list
             ul.nav.nav-list
               li.nav-header Languages
-              li.active
-                a Ruby
-              li
-                a(href='#') JavaScript
-              li
-                a(href='#') Java
-              li
-                a(href='#') C#
-              li
-                a(href='#') Python
-
+              each lang in langs
+                li
+                  a(href='#')= lang
         .span8
           table.table.table-striped
             thead

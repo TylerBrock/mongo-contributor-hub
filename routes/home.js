@@ -4,7 +4,7 @@
  */
 
 exports.index = function(req, res){
-  repos.count(function (err, count) {
-    res.render('index', { count: count });
+  repos.distinct('language', function (err, langs) {
+    res.render('index', { langs: langs });
   });
 };
