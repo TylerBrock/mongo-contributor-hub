@@ -1,1 +1,1 @@
-web: node app.js
+web: node contrib-hub.js
