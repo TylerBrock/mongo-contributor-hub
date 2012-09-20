@@ -44,7 +44,7 @@ setInterval(function updateLangs () {
   return updateLangs;
 }(), ms('1d'))
 
-/*
+/**
  * GET home page.
  */
 
@@ -68,6 +68,10 @@ exports.index = function(req, res, next){
     res.render('index', { langs: langs, projects: projects, lang: langs[0].language, page: 0 });
   })
 };
+
+/**
+ * Click on a language
+ */
 
 exports.lang = function (req, res, next) {
   var lang = req.param('lang');
