@@ -62,7 +62,7 @@ exports.search = function (req, res, next) {
 
   var descRgx = new RegExp(term, 'ig');
   var nameRgx = new RegExp(term, 'ig');
-  repos.find({ $or: [{name: nameRgx, fork:false},{username: nameRgx, fork:false},{description: descRgx, fork:false}] }).toArray(function (err, projects) {
+  repos.find({ $or: [{name: nameRgx, fork:false},{username: nameRgx, fork:false},{description: descRgx, fork:false}] }, { sort: { watchers: -1}}).toArray(function (err, projects) {
     if (err) return next(err);
     res.send(projects);
   });
