@@ -19,10 +19,11 @@ SEARCH_RESOURCE = GH_API + SEARCH + 'mongodb'
 page = 0
 
 loop do
-  puts "Processing page #{page}..."
-  result = RestClient.get SEARCH_RESOURCE, {:start_page => page, :accept => :json}
+  puts "Processing page #{page}"
+  url = SEARCH_RESOURCE + "?start_page=#{page}" 
+  result = RestClient.get url, {:accept => :json}
   rh = JSON.load(result)
-  if result["repositories"].length > 0
+  if rh['repositories'].length > 0
     collection.insert(rh['repositories'])
     page += 1
   else

@@ -3760,8 +3760,10 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav > li > a:hover {
+  color: #DBCAAF;
   text-decoration: none;
-  background-color: #eeeeee;
+  text-shadow: none;
+  background-color: #402818;
 }
 
 .nav > .pull-right {
