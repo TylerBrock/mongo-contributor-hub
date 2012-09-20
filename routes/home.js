@@ -28,6 +28,9 @@ exports.index = function(req, res, next){
 
 exports.lang = function (req, res, next) {
   var lang = req.param('lang');
+  // 20 projects
+  // most followers
+  // no more than 3 per lang
 
   repos
   .find({ 'language': lang }, { limit: 20, sort: { followers: 1 }})
