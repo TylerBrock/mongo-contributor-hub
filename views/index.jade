@@ -14,26 +14,22 @@ html
               li.nav-header Languages
               each lang in langs
                 li
-                  a(href="/language/#{lang}")= lang
-        .span8
-          table.table.table-striped
-            thead
-             tr
-              td Project Name
-              td Owner
-              td Github
-            tr
-              td mongo-ruby-driver
-              td 10gen
-              td http://github.com/mongodb/mongo-ruby-driver
-            tr
-              td mongo-ruby-driver
-              td 10gen
-              td http://github.com/mongodb/mongo-ruby-driver
-            tr
-              td mongo-ruby-driver
-              td 10gen
-              td http://github.com/mongodb/mongo-ruby-driver
+                  a(href="/lang/#{encodeURIComponent(lang)}")= lang
+        
+        //- .span8
+        //-   table.table.table-striped
+        //-     thead
+        //-       tr
+        //-         td Project Name
+        //-         td Owner
+        //-         td Followers
+        //-         td Github
+        //-     each project in projects
+        //-       tr
+        //-         td project.project_name
+        //-         td project.owner
+        //-         td project.followers
+        //-         td project.github_link
 
           ul.pager
             li
