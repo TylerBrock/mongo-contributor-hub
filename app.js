@@ -9,12 +9,12 @@ var mongo = require('mongodb')
   , path = require('path')
   , routes = require('./routes')
 
-var dbname = 'githubdata';
-global.db = new mongo.Db(dbname, new mongo.Server("127.0.0.1", 27017, {})),
-db.open(function (err) {
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost/githubdata';
+mongo.Db.connect(uri, function (err, db) {
   if (err) throw err;
-  console.log('connected to mongo (githubdata)');
+  global.db = db;
   repos = db.collection('repos');
+  console.log('connected to mongo (githubdata)');
   start();
 });
 
