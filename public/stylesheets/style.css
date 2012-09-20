@@ -2,14 +2,19 @@ body {
   background-color: #F3F4EB;
   padding: 15px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  text-shadow: 3px 3px #000;
 }
 
 a {
   color: #412817;
 }
 
+div .nav-list {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: #EAEADF;
+  border-radius: 10px;
+}
+
 .header {
-  padding-left: 10px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
