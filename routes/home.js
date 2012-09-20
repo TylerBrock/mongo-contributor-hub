@@ -87,8 +87,8 @@ exports.search = function (req, res, next) {
   // force int
   var page = req.param('page') | 0;
 
-  var descRgx = new RegExp(term, 'ig');
-  var nameRgx = new RegExp(term, 'ig');
+  var descRgx = new RegExp('\\b' + term + '\\b', 'ig');
+  var nameRgx = descRgx;
 
   var query ={ $or: [{name: nameRgx, fork:false},{username: nameRgx, fork:false},{description: descRgx, fork:false}] };
   var opts = { sort: { watchers: -1}};
