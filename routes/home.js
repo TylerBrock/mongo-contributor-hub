@@ -94,13 +94,34 @@ exports.search = function (req, res, next) {
   // force int
   var page = req.param('page') | 0;
 
-  var descRgx = new RegExp('\\b' + term + '\\b', 'ig');
-  var nameRgx = descRgx;
+  // calualate skip size
+  var pageSize = 20;
+  var skip = page * pageSize;
 
-  var query ={ $or: [{name: nameRgx, fork:false},{username: nameRgx, fork:false},{description: descRgx, fork:false}] };
-  var opts = { sort: { watchers: -1}};
+  //var rgx = new RegExp('\\b' + term + '\\b', 'ig');
+  var rgx = new RegExp(term, 'ig');
+
+  var query = {
+      $or: [
+          { name: rgx, fork: false }
+        , { username: rgx, fork: false }
+        , { description: rgx, fork: false }
+      ]
+  };
+
+  var opts = { sort: { watchers: -1}, limit: pageSize, skip: skip };
+
   repos.find(query, opts).toArray(function (err, projects) {
     if (err) return next(err);
-    res.render('index', { langs: langs, projects: projects || [], lang: '', term: term, page: page });
+
+    var locals = {
+        langs: langs
+      , projects: projects || []
+      , term: term
+      , page: page
+      , lang: ''
+    };
+
+    res.render('index', locals);
   });
 }
