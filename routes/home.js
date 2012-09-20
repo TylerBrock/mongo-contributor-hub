@@ -17,15 +17,28 @@ setInterval(function updateLangs () {
   return updateLangs;
 }(), 60000*5)
 
-
 /*
  * GET home page.
  */
 
 exports.index = function(req, res, next){
-  repos.find({ forks: { $gt: 100 }}, { limit: 20, sort: { forks: -1 }}, function (err, projects) {
+  repos
+  .find({ forks: { $gt: 100 }, fork: false }, { limit: 20, sort: { forks: -1} })
+  .toArray(function (err, projects) {
     if (err) return next(err);
-    res.render('index', { langs: langs, projects: projects || [] });
+
+    projects || (projects = []);
+
+    // sort by last pushed date
+    projects.sort(function (a, b) {
+      if (a.pushed_at > b.pushed_at)
+        return 1;
+      if (a.pushed_at < b.pushed_at)
+        return -1;
+      return 0;
+    });
+
+    res.render('index', { langs: langs, projects: projects });
   })
 };
 
