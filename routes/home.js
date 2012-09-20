@@ -87,7 +87,6 @@ exports.search = function (req, res, next) {
   var opts = { sort: { watchers: -1}};
   repos.find(query, opts).toArray(function (err, projects) {
     if (err) return next(err);
-    //res.send(projects);
     res.render('index', { langs: langs, projects: projects || [], lang: '', term: term, page: page });
   });
 }
