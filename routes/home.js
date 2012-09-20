@@ -23,9 +23,6 @@ setInterval(function updateLangs () {
  */
 
 exports.index = function(req, res, next){
-  // 20 projects
-  // most followers
-  // no more than 3 per lang
   repos.find({ forks: { $gt: 100 }}, { limit: 20, sort: { forks: -1 }}, function (err, projects) {
     if (err) return next(err);
     res.render('index', { langs: langs, projects: projects || [] });
