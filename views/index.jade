@@ -8,8 +8,11 @@ html
 
     .container
       .row
-        .span12.header
+        .span7.header
           img(src="/images/logo-white.png")
+        .span5.search
+          form.navbar-search.pull-right(action="/search", method="get")
+            input.search-query(type="text", name="term", placeholder="Search")
       .row
         .span3
           .nav.nav-list
@@ -32,7 +35,8 @@ html
               tr
                 td 
                   a(href="http://github.com/#{project.owner}/#{project.name}", target="_blank") #{project.name}
-                td(owner='#{project.owner}') #{project.owner}
+                td(owner='#{project.owner}')
+                  a(href="http://github.com/#{project.owner}", target="_blank") #{project.owner}
                 td #{project.followers}
                 td #{project.forks}
 
