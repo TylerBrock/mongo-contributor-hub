@@ -7,7 +7,7 @@ var mongo = require('mongodb')
   , express = require('express')
   , http = require('http')
   , path = require('path')
-  , routes = require('./routes')
+  , routes;
 
 var uri = process.env.MONGOLAB_URI || 'mongodb://localhost/githubdata';
 mongo.Db.connect(uri, function (err, db) {
@@ -15,6 +15,11 @@ mongo.Db.connect(uri, function (err, db) {
   global.db = db;
   repos = db.collection('repos');
   console.log('connected to mongo (githubdata)');
+
+  // execute routes after db has opened
+  routes = require('./routes')
+
+  // init the http server
   start();
 });
 
