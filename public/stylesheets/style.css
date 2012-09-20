@@ -25,7 +25,8 @@ div .nav-list {
 }
 
 .footer {
-  paddign-top: 20px;
-  font-size: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 12px;
   text-align: center;
 }
