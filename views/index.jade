@@ -33,7 +33,7 @@ html
                 td Followers
                 td Forks
             each project in projects
-              tr
+              tr.project
                 td 
                   a(href="http://github.com/#{encodeURIComponent(project.owner)}/#{encodeURIComponent(project.name)}", target="_blank") #{project.name}
                 td(owner='#{project.owner}')
@@ -59,3 +59,11 @@ html
 
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
     script(src="/libs/bootstrap/js/bootstrap.min.js")
+    script
+      $(document).ready(function(){
+        if($("tr.project").size() < 20) {
+          $("ul.pager").hide();
+        } else {
+          $("ul.pager").show();
+        }
+      });
