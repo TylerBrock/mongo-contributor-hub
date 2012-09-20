@@ -1,4 +1,6 @@
-# Note: this expects python 3
+#!/usr/bin/env python3
+
+# Python 3 FTW!
 
 import json
 import os
