@@ -1,6 +1,7 @@
 # Note: this expects python 3
 
 import json
+import os
 import urllib.request
 
 from datetime import datetime
@@ -10,7 +11,9 @@ import pymongo
 from pymongo.errors import (DuplicateKeyError,
                             OperationFailure)
 
-c = pymongo.Connection()
+uri = os.environ.get('MONGOLAB_URI')
+
+c = pymongo.Connection(uri)
 db = c.githubdata
 coll = db.repos
 
