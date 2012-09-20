@@ -74,10 +74,12 @@ exports.index = function(req, res, next){
  */
 
 exports.lang = function (req, res, next) {
-  var lang = req.param('lang');
+  var lang = req.param('lang') || '';
 
   // if nothing submitted, nothing to do
-  if (!(lang= lang.trim())) return next();
+  if (!(lang= lang.trim())) {
+    return res.redirect('/');
+  }
 
   // handle missing language in github
   if ('null' === lang) lang = null;
