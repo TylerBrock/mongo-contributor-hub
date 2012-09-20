@@ -48,6 +48,7 @@ html
             li(class= projects.length < 20 ? 'disabled' : '')
               a(href="/search?term=#{term}&page=#{page+1}") Next
           else
+            - lang = encodeURIComponent(lang || '');
             li(class= 0 === page ? 'disabled' : '')
               a(href="/language/#{lang}?page=#{page > 0 ? page-1 : page}") Previous
             li(class= projects.length < 20 ? 'disabled' : '')

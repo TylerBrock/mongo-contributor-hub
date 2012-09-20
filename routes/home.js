@@ -95,7 +95,22 @@ exports.lang = function (req, res, next) {
   .find({ 'language': lang, fork: false }, { skip: skip, limit: pageSize, sort: { followers: -1 }})
   .toArray(function (err, projects) {
     if (err) return next(err);
-    res.render('index', { langs: langs, projects: projects || [], lang: encodeURIComponent(String(lang)), page: page });
+
+    var locals = {
+        langs: langs
+      , projects: projects || []
+      , lang: lang
+      , page: page
+    };
+
+    res.format({
+        html: function () {
+          res.render('index', locals);
+        }
+      , json: function () {
+          res.send(locals);
+        }
+    })
   });
 }
 
@@ -138,6 +153,13 @@ exports.search = function (req, res, next) {
       , lang: ''
     };
 
-    res.render('index', locals);
+    res.format({
+        html: function () {
+          res.render('index', locals);
+        }
+      , json: function () {
+          res.send(locals);
+        }
+    })
   });
 }
