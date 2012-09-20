@@ -14,7 +14,9 @@ html
               li.nav-header Languages
               each lang in langs
                 li
-                  a(href="/language/#{lang}")= lang
+                  a(href="/language/#{lang._id}")
+                    = lang._id + ' '
+                    span (#{lang.count})
         .span8
           table.table.table-striped
             thead
