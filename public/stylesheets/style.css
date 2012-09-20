@@ -1,15 +1,11 @@
 body {
   background-color: #F3F4EB;
   padding: 15px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
+  font: 14px 'lucida grande',tahoma,verdana,arial,sans-serif;
   color: #412817;
 }
 
 thead {
-  color: #412817;
   font-weight: bold;
 }
 
@@ -22,4 +18,10 @@ div .nav-list {
 
 .header {
   padding-bottom: 20px;
+}
+
+.footer {
+  paddign-top: 20px;
+  font-size: 10px;
+  text-align: center;
 }
