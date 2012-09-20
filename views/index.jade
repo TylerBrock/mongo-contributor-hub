@@ -9,7 +9,8 @@ html
     .container
       .row
         .span7.header
-          img(src="/images/logo-white.png")
+          a(href="/")
+            img(src="/images/logo-white.png")
         .span5.search
           form.navbar-search.pull-right(action="/search", method="get")
             input.search-query(type="text", name="term", placeholder="Search")
@@ -21,7 +22,7 @@ html
               each lang in langs
                 li
                   a(href="/language/#{encodeURIComponent(lang.language)}")
-                    = lang.language + ' '
+                    = lang.language == null ? 'Unknown ' : lang.language + ' '
                     span (#{lang.count})
         .span9
           table.table.table-striped
