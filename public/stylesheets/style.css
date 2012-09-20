@@ -5,8 +5,16 @@ body {
   color: #412817;
 }
 
+.search-query {
+  color: #412817;
+}
+
 a, a:hover {
   color: #412817;
+}
+
+.table a {
+  text-decoration: underline;
 }
 
 thead {
