@@ -1,8 +1,9 @@
+var index = require('./home').index
+  , user = require('./routes/user')
 
-/*
- * GET home page.
- */
+module.exports = exports = function (app) {
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
+  app.get('/', index);
+  app.get('/users', user.list);
+
+}
