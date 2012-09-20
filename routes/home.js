@@ -1,7 +1,17 @@
 
+/**
+ * Module dependencies
+ */
+
+var ms = require('ms')
+
+/**
+ * Languages (cached)
+ */
+
 var langs;
 
-// every 5 mins update this search result
+// update this search result once a day
 setInterval(function updateLangs () {
   console.log('%s: updating languages', new Date);
 
@@ -32,7 +42,7 @@ setInterval(function updateLangs () {
   }
 
   return updateLangs;
-}(), 60000*5)
+}(), ms('1d'))
 
 /*
  * GET home page.
