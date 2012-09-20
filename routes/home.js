@@ -25,7 +25,10 @@ exports.index = function(req, res, next){
   // 20 projects
   // most followers
   // no more than 3 per lang
-  res.render('index', { langs: langs, projects: [] });
+  repos.find({ forks: { $gt: 100 }}, { sort: { forks: -1 }}, function (err, projects) {
+    if (err) return next(err);
+    res.render('index', { langs: langs, projects: [] });
+  })
 };
 
 exports.lang = function (req, res, next) {
