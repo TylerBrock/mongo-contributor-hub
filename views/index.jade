@@ -27,14 +27,14 @@ html
                 td Project Name
                 td Owner
                 td Followers
-                td Github
+                td Forks
             each project in projects
-              console.log(project)
               tr
-                td project.project_name
-                td project.owner
-                td project.followers
-                td project.github_link
+                td 
+                  a(href="http://github.com/#{project.owner}/#{project.name}", target="_blank") #{project.name}
+                td #{project.owner}
+                td #{project.followers}
+                td #{project.forks}
 
         //- ul.pager
         //-   li
