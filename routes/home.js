@@ -59,12 +59,10 @@ exports.lang = function (req, res, next) {
   var page = req.param('page') || 0;
 
   repos
-  .find({ 'language': lang }, { skip: page, limit: 20, sort: { followers: 1 }})
-  .toArray(function (err, langs) {
+  .find({ 'language': lang }, { limit: 20, sort: { followers: 1 }})
+  .toArray(function (err, projects) {
     if (err) return next(err);
-
-    // TODO use a different view
-    res.render('index', { langs: langs || [], projects: [] });
+    res.render('index', { langs: langs, projects: projects || [] });
   });
 }
 
