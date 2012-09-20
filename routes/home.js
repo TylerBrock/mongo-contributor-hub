@@ -27,7 +27,7 @@ exports.index = function(req, res, next){
   // no more than 3 per lang
   repos.find({ forks: { $gt: 100 }}, { sort: { forks: -1 }}, function (err, projects) {
     if (err) return next(err);
-    res.render('index', { langs: langs, projects: [] });
+    res.render('index', { langs: langs, projects: projects || [] });
   })
 };
 
