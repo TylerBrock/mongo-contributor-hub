@@ -59,7 +59,7 @@ exports.lang = function (req, res, next) {
   var page = req.param('page') || 0;
 
   repos
-  .find({ 'language': lang }, { skip: page, limit: 20, sort: { followers: 1 }})
+  .find({ 'language': lang, fork: false }, { skip: page, limit: 20, sort: { followers: 1 }})
   .toArray(function (err, langs) {
     if (err) return next(err);
 

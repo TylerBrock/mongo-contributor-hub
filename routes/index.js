@@ -7,5 +7,5 @@ module.exports = exports = function (app) {
   app.get('/users', user.list);
   app.get('/language/:lang', home.lang)
   app.get('/search/:term', home.search)
-
+'
 }
