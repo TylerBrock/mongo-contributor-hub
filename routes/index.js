@@ -1,5 +1,5 @@
 var index = require('./home').index
-  , user = require('./routes/user')
+  , user = require('./user')
 
 module.exports = exports = function (app) {
 
