@@ -41,6 +41,7 @@ html
         //-     a(href="#") Previous
         //-   li
         //-     a(href="#") Next
+
       .row
         .span12.footer Copyright &copy; #{(new Date()).getFullYear()} 10gen, Inc. Licensed under Creative Commons. MongoDB&reg;, Mongo&reg;, and the leaf logo are registered trademarks of 10gen, Inc.
 
@@ -51,13 +52,6 @@ html
       $(".nav-list a").click(function(){
         // fetch rendered template for given lang
         // replace html
-      });
-      $("table.table.table-striped tr").each(function(){
-        var td_owner = $(this).find('[owner]');
-        $.get(
-            'https://api.github.com/users/{username}', {username:td_owner.attr('owner')}
-            function(data) {td_owner.append('<img src="'+data.avatar_url+'"/>)}
-        );
       });
 
       $(".pager a").click(function(){
