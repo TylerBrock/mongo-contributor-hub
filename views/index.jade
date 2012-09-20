@@ -42,10 +42,16 @@ html
                 td #{project.forks}
 
         ul.pager
-          li
-            a(href="/language/#{lang}?page=#{page > 0 ? page-1 : page}") Previous
-          li
-            a(href="/language/#{lang}?page=#{page+1}") Next
+          if locals.term
+            li(class= 0 === page ? 'disabled' : '')
+              a(href="/search?term=#{term}&page=#{page > 0 ? page-1 : page}") Previous
+            li(class= projects.length < 20 ? 'disabled' : '')
+              a(href="/search?term=#{term}&page=#{page+1}") Next
+          else
+            li(class= 0 === page ? 'disabled' : '')
+              a(href="/language/#{lang}?page=#{page > 0 ? page-1 : page}") Previous
+            li(class= projects.length < 20 ? 'disabled' : '')
+              a(href="/language/#{lang}?page=#{page+1}") Next
 
       .row
         .span12.footer Copyright &copy; #{(new Date()).getFullYear()} 10gen, Inc. Licensed under Creative Commons. MongoDB&reg;, Mongo&reg;, and the leaf logo are registered trademarks of 10gen, Inc.
