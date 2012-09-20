@@ -50,19 +50,19 @@ exports.index = function(req, res, next){
       return 0;
     });
 
-    res.render('index', { langs: langs, projects: projects });
+    res.render('index', { langs: langs, projects: projects, lang: langs[0].language, page: 0 });
   })
 };
 
 exports.lang = function (req, res, next) {
   var lang = req.param('lang');
-  var page = req.param('page') || 0;
+  var page = req.param('page') | 0;
 
   repos
   .find({ 'language': lang, fork: false }, { skip: page, limit: 20, sort: { followers: 1 }})
   .toArray(function (err, langs) {
     if (err) return next(err);
-    res.render('index', { langs: langs, projects: projects || [] });
+    res.render('index', { langs: langs, projects: projects || [], lang: lang, page: page });
   });
 }
 

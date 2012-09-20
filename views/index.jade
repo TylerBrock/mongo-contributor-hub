@@ -38,22 +38,12 @@ html
 
         ul.pager
           li
-            a(href="#") Previous
+            a(href="/language/#{lang}?page=#{page > 0 ? page-1 : page}") Previous
           li
-            a(href="#") Next
+            a(href="/language/#{lang}?page=#{page+1}") Next
 
       .row
         .span12.footer Copyright &copy; #{(new Date()).getFullYear()} 10gen, Inc. Licensed under Creative Commons. MongoDB&reg;, Mongo&reg;, and the leaf logo are registered trademarks of 10gen, Inc.
 
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js")
     script(src="/libs/bootstrap/js/bootstrap.min.js")
-
-    script
-      $(".nav-list a").click(function(){
-        // fetch rendered template for given lang
-        // replace html
-      });
-
-      $(".pager a").click(function(){
-
-      });
