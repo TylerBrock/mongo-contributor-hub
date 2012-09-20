@@ -4,9 +4,10 @@ var langs;
 // every 5 mins update this search result
 setInterval(function updateLangs () {
   console.log('updateLangs: querying...');
+  var match =  {$match: { fork: false }};
   var group = {$group : {_id : "$language", count : {$sum : 1 } } };
   var sort = {$sort : {count : -1}};
-  repos.aggregate(group, sort, function (err, languages) {
+  repos.aggregate(match, group, sort, function (err, languages) {
     if (err) {
       console.error('updateLangs error: ', err);
       languages || (languages = []);
@@ -25,7 +26,7 @@ exports.index = function(req, res, next){
   // 20 projects
   // most followers
   // no more than 3 per lang
-  repos.find({ forks: { $gt: 100 }}, { sort: { forks: -1 }}, function (err, projects) {
+  repos.find({ forks: { $gt: 100 }}, { limit: 20, sort: { forks: -1 }}, function (err, projects) {
     if (err) return next(err);
     res.render('index', { langs: langs, projects: projects || [] });
   })
