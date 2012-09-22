@@ -42,3 +42,7 @@ div .nav-list {
   font-size: 12px;
   text-align: center;
 }
+
+.pager li:last-child a {
+  margin-left: 5px;
+}
