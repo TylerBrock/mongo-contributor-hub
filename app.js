@@ -31,11 +31,7 @@ function start () {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.favicon(__dirname + '/public/favicon.ico'));
-    app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.cookieParser('iliketurtles'));
-    app.use(express.session());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
   });
