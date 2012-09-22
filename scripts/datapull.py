@@ -1,4 +1,6 @@
-# Note: this expects python 3
+#!/usr/bin/env python3
+
+# Python 3 FTW!
 
 import json
 import os
@@ -41,7 +43,7 @@ while True:
             # Convert date strings to real timestamps.
             for field in ('created', 'created_at', 'pushed', 'pushed_at'):
                 # TODO: This sucks ass but skip timezone offsets for the time being.
-                repo[field] = datetime.strptime(repo[field].rsplit('-', 1)[0], fmt)
+                repo[field] = datetime.strptime(repo[field][:-6], fmt)
             try:
                 # Update so we get updated followers and watchers count.
                 res = coll.update({'username': repo['username'],
