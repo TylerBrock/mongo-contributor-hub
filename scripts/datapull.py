@@ -1,10 +1,7 @@
-#!/usr/bin/env python3
-
-# Python 3 FTW!
-
+#!/usr/bin/env python
 import json
 import os
-import urllib.request
+import urllib2
 
 from datetime import datetime
 from pprint import pprint
@@ -29,13 +26,13 @@ page = 0
 
 while True:
 
-    print(page)
-    response = urllib.request.urlopen('https://api.github.com/legacy/'
-                                      'repos/search/:mongodb?start_page'
-                                      '=%d' % (page,))
+    #print(page)
+    response = urllib2.urlopen('https://api.github.com/legacy/'
+        'repos/search/:mongodb?start_page'
+        '=%d' % (page,))
 
     data = response.read()
-    js = json.loads(data.decode())
+    js = json.loads(data)
     # github returns an empty array for 'repositories'
     # when there are no more results.
     if js['repositories']:
@@ -50,7 +47,7 @@ while True:
                                    'name': repo['name']},
                                   repo, upsert=True, safe=True)
                 if not res['updatedExisting']:
-                    pprint(repo)
+                    pass
             except (DuplicateKeyError, OperationFailure):
                 pass
 
