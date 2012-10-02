@@ -30,8 +30,10 @@ html
               tr
                 td Project Name
                 td Owner
-                td Followers
-                td Forks
+                td
+                  a(href='?term=#{term}&sort=followers&order=#{'followers' == sort ? order * -1 : -1}') Followers
+                td
+                  a(href='?term=#{term}&sort=forks&order=#{'forks' == sort ? order * -1 : -1}') Forks
             each project in projects
               tr.project
                 td 
@@ -41,27 +43,7 @@ html
                 td #{project.followers}
                 td #{project.forks}
 
-        if projects.length >= 20
-          ul.pager
-            if locals.term
-              if 0 === page
-                li.disabled
-                  span Previous
-              else
-                li
-                  a(href="/search?term=#{term}&page=#{page > 0 ? page-1 : page}") Previous
-              li
-                a(href="/search?term=#{term}&page=#{page+1}") Next
-            else
-              if 0 === page
-                li.disabled
-                  span Previous
-              else
-                lang = encodeURIComponent(lang || "");
-                li
-                  a(href="/language/#{lang}?page=#{page > 0 ? page-1 : page}") Previous
-              li
-                a(href="/language/#{lang}?page=#{page+1}") Next
+        include ./pager
 
       .row
         .span12.footer Copyright &copy; #{(new Date()).getFullYear()} 10gen, Inc. Licensed under Creative Commons. MongoDB&reg;, Mongo&reg;, and the leaf logo are registered trademarks of 10gen, Inc.

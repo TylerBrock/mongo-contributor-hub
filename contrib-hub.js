@@ -39,10 +39,6 @@ function start () {
     app.use(express.bodyParser());
   });
 
-  app.configure('development', function(){
-    app.use(express.errorHandler());
-  });
-
   routes(app);
   errors(app);
 

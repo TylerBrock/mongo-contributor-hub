@@ -9,12 +9,15 @@ module.exports = exports = function (app) {
     res.format({
       'text': function () {
         res.send('Uh oh, something went wrong.');
+        console.error(err);
       },
       'json': function () {
         res.json({ err: 'Uh oh, something went wrong.' });
+        console.error(err);
       },
       'html': function () {
         res.render('error', err);
+        console.error(err);
       }
     });
   })

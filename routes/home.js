@@ -45,27 +45,59 @@ setInterval(function updateLangs () {
 }(), ms('1d'))
 
 /**
+ * valid sorts
+ */
+
+var validSorts = 'followers forks'.split(' ');
+var pageSize = 20;
+
+function getSort (req, def) {
+  var sort = {};
+
+  var sortPath = req.param('sort');
+  if (!~validSorts.indexOf(sortPath)) sortPath = def || 'forks';
+
+  var order = req.param('order') | 0;
+  if (1 !== order) order = -1;
+
+  sort.key = sortPath;
+  sort.order = order;
+  sort.arg = {};
+  sort.arg[sortPath] = order;
+
+  return sort;
+}
+
+function getSkip (req) {
+  // force int
+  var page = req.param('page') | 0;
+  return page * pageSize;
+}
+
+/**
  * GET home page.
  */
 
 exports.index = function(req, res, next){
+  var sort = getSort(req);
+  var skip = getSkip(req);
+
   repos
-  .find({ forks: { $gt: 100 }, fork: false }, { limit: 20, sort: { forks: -1} })
+  .find({ forks: { $gt: 50 }, fork: false }
+      , { limit: pageSize, skip: skip, sort: sort.arg })
   .toArray(function (err, projects) {
     if (err) return next(err);
 
     projects || (projects = []);
 
-    // sort by last pushed date
-    projects.sort(function (a, b) {
-      if (a.pushed_at > b.pushed_at)
-        return 1;
-      if (a.pushed_at < b.pushed_at)
-        return -1;
-      return 0;
+    res.render('index', {
+        langs: langs
+      , projects: projects
+      , page: req.param('page') | 0
+      , sort: sort.key
+      , order: sort.order
+      , term: ''
     });
-
-    res.render('index', { langs: langs, projects: projects, lang: langs[0].language, page: 0 });
   })
 };
 
@@ -84,15 +116,12 @@ exports.lang = function (req, res, next) {
   // handle missing language in github
   if ('null' === lang) lang = null;
 
-  // force int
-  var page = req.param('page') | 0;
-
-  // calualate skip size
-  var pageSize = 20;
-  var skip = page * pageSize;
+  var skip = getSkip(req);
+  var sort = getSort(req);
 
   repos
-  .find({ 'language': lang, fork: false }, { skip: skip, limit: pageSize, sort: { followers: -1 }})
+  .find({ 'language': lang, fork: false }
+      , { skip: skip, limit: pageSize, sort: sort.arg })
   .toArray(function (err, projects) {
     if (err) return next(err);
 
@@ -100,7 +129,10 @@ exports.lang = function (req, res, next) {
         langs: langs
       , projects: projects || []
       , lang: lang
-      , page: page
+      , page: req.param('page') | 0
+      , order: sort.order
+      , sort: sort.key
+      , term: ''
     };
 
     res.format({
@@ -122,14 +154,8 @@ exports.search = function (req, res, next) {
     return res.redirect('/');
   }
 
-  // force int
-  var page = req.param('page') | 0;
+  var skip = getSkip(req);
 
-  // calualate skip size
-  var pageSize = 20;
-  var skip = page * pageSize;
-
-  //var rgx = new RegExp('\\b' + term + '\\b', 'ig');
   var rgx = new RegExp(term, 'ig');
 
   var query = {
@@ -140,7 +166,9 @@ exports.search = function (req, res, next) {
       ]
   };
 
-  var opts = { sort: { watchers: -1}, limit: pageSize, skip: skip };
+  var sort = getSort(req, 'watchers');
+
+  var opts = { sort: sort.arg, limit: pageSize, skip: skip };
 
   repos.find(query, opts).toArray(function (err, projects) {
     if (err) return next(err);
@@ -148,9 +176,11 @@ exports.search = function (req, res, next) {
     var locals = {
         langs: langs
       , projects: projects || []
-      , term: term
-      , page: page
+      , term: term || ''
+      , page: req.param('page') | 0
       , lang: ''
+      , order: sort.order
+      , sort: sort.key
     };
 
     res.format({

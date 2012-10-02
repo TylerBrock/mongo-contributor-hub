@@ -1,0 +1,40 @@
+qspage = 'page=' + (page > 0 ? page-1 : page)
+qssort = 'sort=' + sort + '&order=' + order
+
+if projects.length >= 20
+  ul.pager
+    if locals.term
+      if 0 === page
+        li.disabled
+          span Previous
+      else
+        li
+          a(href="/search?term=#{term}&#{qssort}&#{qspage}") Previous
+      li
+        a(href="/search?term=#{term}&#{qssort}&page=#{page+1}") Next
+    else if locals.lang
+      if 0 === page
+        li.disabled
+          span Previous
+      else
+        lang = encodeURIComponent(lang||'');
+        li
+          a(href="/language/#{lang}?#{qssort}&#{qspage}") Previous
+      li
+        a(href="/language/#{lang}?#{qssort}&page=#{page+1}") Next
+    else
+      if 0 === page
+        li.disabled
+          span Previous
+      else
+        li
+          a(href="/?#{qspage}&#{qssort}") Previous
+      li
+        a(href="/?page=#{page+1}&#{qssort}") Next
+else if page > 0
+  ul.pager
+    li
+      a(href="/?#{qspage}&#{qssort}") Previous
+    li.disabled
+      span Next
+
