@@ -69,6 +69,11 @@ function page (num, cb) {
   req.on('error', cb);
   req.end(function (res) {
     if (res.error) {
+      if (422 == res.statusCode) {
+        // github limits to first 1000 results
+        return cb();
+      }
+
       return cb(new Error('failed with status: ' + res.status));
     }
 
