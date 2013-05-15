@@ -66,6 +66,7 @@ function page (num, cb) {
   var req = request.get(uri + num);
   req.on('error', cb);
   req.end(function (res) {
+    console.log(typeof res, res);
     var pending = res.body && res.body.repositories && res.body.repositories.length;
 
     if (!pending) return cb();
