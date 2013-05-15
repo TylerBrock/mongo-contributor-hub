@@ -63,10 +63,15 @@ mongo.Db.connect(mongouri, function (err, db_) {
  */
 
 function page (num, cb) {
-  var req = request.get(uri + num);
+  var req = request
+            .get(uri + num)
+            .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31')
   req.on('error', cb);
   req.end(function (res) {
-    console.log(typeof res, res);
+    if (res.error) {
+      return cb(new Error('failed with status: ' + res.status));
+    }
+
     var pending = res.body && res.body.repositories && res.body.repositories.length;
 
     if (!pending) return cb();
